@@ -1,0 +1,33 @@
+package main
+
+// 空间复杂度O(m+n)
+func setZeroes(matrix [][]int) {
+	rowMap := make(map[int]struct{})
+	lineMap := make(map[int]struct{})
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[0]); j++ {
+			if matrix[i][j] == 0 {
+				rowMap[i] = struct{}{}
+				lineMap[j] = struct{}{}
+			}
+		}
+	}
+	for row := range rowMap {
+		setRowZero(matrix, row)
+	}
+	for line := range lineMap {
+		setLineZero(matrix, line)
+	}
+}
+
+func setRowZero(matrix [][]int, row int) {
+	for j := 0; j < len(matrix[0]); j++ {
+		matrix[row][j] = 0
+	}
+}
+
+func setLineZero(matrix [][]int, line int) {
+	for i := 0; i < len(matrix); i++ {
+		matrix[i][line] = 0
+	}
+}
